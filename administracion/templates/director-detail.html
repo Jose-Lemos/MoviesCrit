@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events">
+        <div class="container" data-aos="fade-up">
+            <div class="swiper-slide">
+                <div class="row event-item">
+                <div class="col-lg">
+                    <img src="{{ director.foto.url }}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 content">
+                    <h3>{{ director.nombre }}</h3>
+                    <div class="price">
+                        <p><span>Año de Nacimiento: {{ director.año_nacimiento }}</span></p>
+                        <p><span>Nacionalidad: {{ director.nacionalidad }}</span></p>
+                    </div>
+                    <p class="fst-italic">
+                        Resumen Biográfico: {{ director.rumen_biografico }}
+                    </p>                    
+                </div>
+            </div>
+          </div><!-- End testimonial item -->
+        </div>
+    </section><!-- End Events Section -->
+{% endblock %}

@@ -15,10 +15,13 @@ Including another URLconf
 """
 
 from django.urls import path
-from administracion.views import PeliculasListView, ActoresListView, DirectoresListView
+from administracion.views import ActoresDetailView, PeliculasListView, ActoresListView, DirectoresListView, PeliculasDetailView, DirectoresDetailView
 
 urlpatterns = [
     path('', PeliculasListView.as_view(), name="peliculas"),
     path('actores/', ActoresListView.as_view(), name="actores"),
     path('directores/', DirectoresListView.as_view(), name="directores"),
+    path('pelicula/<pk>/', PeliculasDetailView.as_view(), name="detalles-pelicula"),
+    path('actores/<pk>/', ActoresDetailView.as_view(), name="detalles-actor"),
+    path('directores/<pk>/', DirectoresDetailView.as_view(), name="detalles-director"),
 ]

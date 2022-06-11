@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                  <h2>Crítica</h2>
+                  <p>Realizar Crítica</p>
+                </div>
+              </div>
+
+            <div class="row mt-5 justify-content-center align-items-center">
+
+                <div class="col-lg-8 mt-5 mt-lg-0">
+                    <form action="" method="post" role="form" class="php-email-form">
+                      {% csrf_token %}
+                      <div class="row">
+                        
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                          <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                        </div>
+                        <!--<div class="col-md-6 form-group">
+                            <input type="number" name="name" class="form-control" id="name" placeholder="Puntaje" required>
+                        </div>-->
+                        <div class="col-md-6 form-group">
+                            <span class="my-rating-9"></span>
+                            <span  class="live-rating"></span>
+                        </div>
+
+
+                      </div>
+                      <div class="form-group mt-3">
+                        <textarea class="form-control" name="message" rows="8" placeholder="Message" required></textarea>
+                      </div>
+                      <div class="my-3">
+                        <div class="loading">Loading</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                      </div>
+                      <div class="text-center"><button type="submit">Publicar Crítica</button></div>
+                    </form>
+        
+                </div>
+        
+            </div>
+        
+        </div>
+    </section><!-- End Contact Section -->
+{% endblock %}

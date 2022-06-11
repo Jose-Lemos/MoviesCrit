@@ -60,6 +60,7 @@ class Pelicula(models.Model):
 
     def __str__(self):
         return self.nombre
+    
 
 #Los usuarios realizan las críticas
 class Crítica(models.Model):

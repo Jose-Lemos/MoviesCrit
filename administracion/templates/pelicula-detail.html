@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% include 'header-peliculas.html' %}
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events">
+        <div class="container" data-aos="fade-up">
+            <div class="swiper-slide">
+                <div class="row event-item">
+                <div class="col-lg">
+                    <img src="{{ pelicula.foto.url }}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 content" id="pelicula-name">
+                    <h3>{{ pelicula.nombre }}</h3>
+                    <div class="price">
+                        <p><span>Año de Realización: {{ pelicula.año_realización }}</span></p>
+                    </div>
+                    <p class="fst-italic">
+                        Resumen: {{ pelicula.resumen }}
+                    </p>
+                                   
+                </div>
+            </div>
+          </div><!-- End testimonial item -->
+        </div>
+    </section><!-- End Events Section -->
+
+    {% include 'form-critica.html' %}
+{% endblock %}
