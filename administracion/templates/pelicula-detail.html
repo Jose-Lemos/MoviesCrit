@@ -16,8 +16,24 @@
                         <p><span>Año de Realización: {{ pelicula.año_realización }}</span></p>
                     </div>
                     <p class="fst-italic">
-                        Resumen: {{ pelicula.resumen }}
+                        Resumen: {{ pelicula.resumen }}  
                     </p>
+                    <p class="fst-italic">
+                        Puntaje: {{ pelicula.estrella }}  
+                    </p>
+                    <p class="fst-italic"> Actores:</p>
+                    <ul>
+                        {% for actor in actores %}
+                        <li>{{ actor.nombre }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <p class="fst-italic">DIrectores:</p>
+                    <ul>
+                        {% for director in directores %}
+                        <li>{{ director.nombre }}</li>
+                        {% endfor %}
+                    </ul>
                                    
                 </div>
             </div>
@@ -26,4 +42,5 @@
     </section><!-- End Events Section -->
 
     {% include 'form-critica.html' %}
+    {% include 'comentarios.html' %}
 {% endblock %}

@@ -22,6 +22,7 @@ urlpatterns = [
     path('actores/', ActoresListView.as_view(), name="actores"),
     path('directores/', DirectoresListView.as_view(), name="directores"),
     path('pelicula/<pk>/', PeliculasDetailView.as_view(), name="detalles-pelicula"),
+    #path('pelicula/<pk>/', CriticasCreateView.as_view(), name="realizar-critica"),
     path('actores/<pk>/', ActoresDetailView.as_view(), name="detalles-actor"),
     path('directores/<pk>/', DirectoresDetailView.as_view(), name="detalles-director"),
 ]

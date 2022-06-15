@@ -58,12 +58,24 @@ class PeliculaAdmin(admin.ModelAdmin):
 
     get_categorias.short_description = 'categorias'
 
+
+@admin.action(description='Validar Críticas Seleccionadas')
+def validar_criticas(modeladmin, request, queryset):
+    queryset.update(valida="válida")
+
+@admin.action(description='Rechazar Críticas Seleccionadas')
+def rechazar_criticas(modeladmin, request, queryset):
+    queryset.update(valida="Rechazada")
+
 @admin.register(Crítica)
 class CriticaAdmin(admin.ModelAdmin):
     list_display = ('id', 'correo', 'comentario', 'puntaje', 'valida', 'pelicula', 'fecha')
+    list_filter = ('valida', 'fecha', 'puntaje', 'pelicula', 'correo')
+    list_display_links = ('correo',)
     ordering = ('fecha',)
     list_editable = ('comentario', 'valida')
     exclude = ('correo','puntaje', 'fecha', 'pelicula')
+    actions = [validar_criticas, rechazar_criticas]
 
     def has_add_permission(self, request):
         return False

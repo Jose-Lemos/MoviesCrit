@@ -58,16 +58,25 @@ class Pelicula(models.Model):
     def cantidad_criticas():
         pass
 
+    #def get_actores(self):
+     #   for actor in self.actores :
+
+
     def __str__(self):
         return self.nombre
     
 
 #Los usuarios realizan las críticas
 class Crítica(models.Model):
+    ESTADO_CHOICES = (
+        ('espera', "Esperando Validación"),
+        ('rechazada', "Rechazada"),
+        ('valida', "válida"),
+    )
     correo = models.EmailField()
     comentario = models.TextField(max_length=300)
-    puntaje = models.PositiveSmallIntegerField()
-    valida = models.BooleanField(default=False)
+    puntaje = models.FloatField()
+    valida = models.CharField(max_length=100, choices=ESTADO_CHOICES, default='espera')
     pelicula = models.ForeignKey(Pelicula, on_delete=models.DO_NOTHING)
     fecha = models.DateTimeField(auto_now_add = True)
 

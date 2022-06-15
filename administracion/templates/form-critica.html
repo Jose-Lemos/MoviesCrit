@@ -17,22 +17,28 @@
                     <form action="" method="post" role="form" class="php-email-form">
                       {% csrf_token %}
                       <div class="row">
+                        <!--<div class="form-group mt-3">
+                          {{ form.as_p }}
+                        </div>-->
                         
                         <div class="col-md-6 form-group mt-3 mt-md-0">
-                          <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                          {{ form.correo }}
+                          <!--<input type="email" class="form-control" name="email" id="email" placeholder="Email" required>-->
+                        </div>
+                        <div class="col-md-6 form-group">
+                          {{ form.puntaje }}
+                            <!--<input type="number" name="name" class="form-control" id="name" placeholder="Puntaje" required>-->
                         </div>
                         <!--<div class="col-md-6 form-group">
-                            <input type="number" name="name" class="form-control" id="name" placeholder="Puntaje" required>
-                        </div>-->
-                        <div class="col-md-6 form-group">
                             <span class="my-rating-9"></span>
                             <span  class="live-rating"></span>
-                        </div>
+                        </div>-->
 
 
                       </div>
                       <div class="form-group mt-3">
-                        <textarea class="form-control" name="message" rows="8" placeholder="Message" required></textarea>
+                        {{ form.comentario }}
+                        <!--<textarea class="form-control" name="message" rows="8" placeholder="Message" required></textarea>-->
                       </div>
                       <div class="my-3">
                         <div class="loading">Loading</div>
