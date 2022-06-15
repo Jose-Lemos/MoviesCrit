@@ -24,14 +24,14 @@
                     <p class="fst-italic"> Actores:</p>
                     <ul>
                         {% for actor in actores %}
-                        <li>{{ actor.nombre }}</li>
+                        <a href="http://127.0.0.1:8000/actores/{{actor.id}}"><li>{{ actor.nombre }}</li></a>
                         {% endfor %}
                     </ul>
 
                     <p class="fst-italic">DIrectores:</p>
                     <ul>
                         {% for director in directores %}
-                        <li>{{ director.nombre }}</li>
+                        <a href="http://127.0.0.1:8000/directores/{{ director.id }}"><li>{{ director.nombre }}</li></a>
                         {% endfor %}
                     </ul>
                                    

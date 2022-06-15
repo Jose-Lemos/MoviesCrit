@@ -1,23 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    {% include 'header-detail-actor.html' %}
     <!-- ======= Events Section ======= -->
     <section id="events" class="events">
         <div class="container" data-aos="fade-up">
             <div class="swiper-slide">
                 <div class="row event-item">
-                <div class="col-lg">
+                <div class="col-lg" id="img-actor">
                     <img src="{{ actor.foto.url }}" class="img-fluid" alt="">
                 </div>
-                <div class="col-lg-6 pt-4 pt-lg-0 content">
+                <div class="col-lg-6 pt-4 pt-lg-0 content" id="actor-name">
                     <h3>{{ actor.nombre }}</h3>
                     <div class="price">
                         <p><span>Año de Nacimiento: {{ actor.año_nacimiento }}</span></p>
                         <p><span>Nacionalidad: {{ actor.nacionalidad }}</span></p>
                     </div>
                     <p class="fst-italic">
-                        Resumen Biográfico: {{ actor.rumen_biografico }}
-                    </p>                    
+                        Resumen Biográfico: {{ actor.resumen_biografico }}
+                    </p>
+                    <p class="fst-italic">
+                        Participó en:
+                    </p>
+                    <ul>
+                        {% for pelicula in peliculas %}
+                        <a href="http://127.0.0.1:8000/pelicula/{{pelicula.id}}"><li>{{ pelicula.nombre }}</li></a>
+                        {% endfor %}
+                    </ul>                    
                 </div>
             </div>
           </div><!-- End testimonial item -->

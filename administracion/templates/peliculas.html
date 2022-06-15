@@ -14,7 +14,7 @@
               <div class="box" data-aos="zoom-in" data-aos-delay="100">
                 
                   
-                  <a href="http://127.0.0.1:8000/pelicula/{{pelicula.id}}"><img src="{{ pelicula.foto.url }}" class="img-fluid" alt="img-pelicula"></a>
+                  <a href="{{pelicula.get_absolute_url}}"><img src="{{ pelicula.foto.url }}" class="img-fluid" alt="img-pelicula"></a>
                   <h4>
                   {{ pelicula.nombre }}
                   </h4>

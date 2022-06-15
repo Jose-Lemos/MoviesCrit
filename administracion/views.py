@@ -97,9 +97,21 @@ class ActoresListView(ListView):
     paginate_by = 12
     template_name = 'actores.html'
 
+
 class ActoresDetailView(DetailView):
     model = Actor
-    template_name = 'actor-detail.html'    
+    template_name = 'actor-detail.html'   
+
+    actor = Actor()
+
+    def get_context_data(self, **kwargs):
+        pk_actor = self.kwargs['pk']
+        context = super().get_context_data(**kwargs) 
+        context['actor'] = Actor.objects.get(pk = pk_actor)
+        self.actor = Actor.objects.get(pk = pk_actor)
+        context['peliculas'] = Pelicula.objects.filter(actores = self.actor)
+
+        return context
 
 #Views Directores
 class DirectoresListView(ListView):
@@ -112,5 +124,16 @@ class DirectoresListView(ListView):
 class DirectoresDetailView(DetailView):
     model = Director
     template_name = 'director-detail.html'
+
+    director = Director()
+
+    def get_context_data(self, **kwargs):
+        pk_director = self.kwargs['pk']
+        context = super().get_context_data(**kwargs) 
+        context['director'] = Director.objects.get(pk = pk_director)
+        self.director = Director.objects.get(pk = pk_director)
+        context['peliculas'] = Pelicula.objects.filter(directores = self.director)
+
+        return context
 
 

@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from PIL import Image
+from django.urls import reverse
 
 # Create your models here.
 
@@ -29,10 +30,17 @@ class Elenco(models.Model):
 class Actor(Elenco):
     foto = models.ImageField(upload_to="actores/",default="elenco-default.png",null=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse('detalles-actor', args=[str(self.id)])
+
 
 #El admin carga los directores
 class Director(Elenco):
     foto = models.ImageField(upload_to="directores/",default="elenco-default.png",null=True, blank=True)
+
+    def get_absolute_url(self):
+        return reverse('detalles-director', args=[str(self.id)])
+
 
 #El admin carga las categorias
 class Categoria(models.Model):
@@ -61,6 +69,10 @@ class Pelicula(models.Model):
     #def get_actores(self):
      #   for actor in self.actores :
 
+    
+    def get_absolute_url(self):
+        return reverse('detalles-pelicula', args=[str(self.id)])
+
 
     def __str__(self):
         return self.nombre
@@ -82,5 +94,6 @@ class Crítica(models.Model):
 
     def __str__(self):
         return '{0} {1} {2}'.format(self.correo, self.comentario, self.puntaje)
+
 
 
