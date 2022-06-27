@@ -15,14 +15,17 @@
           <li><a class="nav-link scrollto" href="#events">Estrenos</a></li>
           <li><a class="nav-link scrollto" href="actores">Actores</a></li>
           <li><a class="nav-link scrollto" href="directores">Directores</a></li>
-          <div class="input-group">
-            <div class="form-outline">
-              <input id="search-focus" type="search" id="form1" class="form-control" />
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="input-group">
+              <div class="form-outline">
+                {{form.nombre}}
+              </div>
+              <button type="submit" class="btn btn-warning">
+                <i class="fas fa-search">Buscar</i>
+              </button>
             </div>
-            <button type="button" class="btn btn-warning">
-              <i class="fas fa-search">Buscar</i>
-            </button>
-          </div>
+          </form>
         </ul>
         
       </nav><!-- .navbar -->

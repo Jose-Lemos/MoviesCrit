@@ -60,14 +60,15 @@ class Pelicula(models.Model):
     directores = models.ManyToManyField(Director, related_name='peliculas')
     estrella = models.FloatField()
 
-    def ranking():
-        pass
+    def get_estrellas(self):
+        return self.estrella
 
-    def cantidad_criticas():
-        pass
 
-    #def get_actores(self):
-     #   for actor in self.actores :
+
+    def actualizar_estrellas(self, estrella_actual):
+        self.estrella = estrella_actual
+        self.save()
+        
 
     
     def get_absolute_url(self):
@@ -94,6 +95,23 @@ class Crítica(models.Model):
 
     def __str__(self):
         return '{0} {1} {2}'.format(self.correo, self.comentario, self.puntaje)
+
+    def actualizar_puntaje_pelicula(self):
+        criticas_pelicula = Crítica.objects.filter(pelicula = self.pelicula, valida = 'válida')
+        list_criticas_pelicula = list(criticas_pelicula)
+        cant_criticas_validas = len(criticas_pelicula)
+        suma_total = 0
+        if cant_criticas_validas > 0:
+            for critica in list_criticas_pelicula:
+                suma_total += critica.puntaje
+            promedio = suma_total / cant_criticas_validas
+            critica.pelicula.actualizar_estrellas(promedio)
+
+    
+
+
+
+        
 
 
 

@@ -775,7 +775,13 @@ section {
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   transition: all ease-in-out 0.3s;
   background: #1a1814;
+  height: 500px;
 }
+
+.why-us .box a img{
+  height: 200px;
+}
+
 .why-us .box span {
   display: block;
   font-size: 28px;
@@ -1055,6 +1061,11 @@ section {
   background-color: #cda45e;
 }
 
+
+#container-image img{
+  height: 700px;
+  padding-top: 80px;
+}
 
 #img-actor > img{
   height: 450px;

@@ -2,50 +2,47 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView
 from administracion.models import Pelicula, Actor, Director, Crítica
-from administracion.forms import CriticasForm
+from administracion.forms import CriticasForm, PeliculasForm, ActoresForm, DirectoresForm
+from django.db.models import Q
 # Create your views here.
 #Views Peliculas
-class PeliculasListView(ListView):
-    model = Pelicula
-    queryset = Pelicula.objects.all()
+class PeliculasListView(TemplateView):
+    #model = Pelicula
+    queryset = Pelicula.objects.all().order_by('-estrella')
     #context_object_name = 'peliculas'
     paginate_by = 12
     template_name = 'index.html'
+    form_class = PeliculasForm
 
-    #def calculated_stars(self, **kwargs):
-        
-     #   criticas = []
-        
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        peliculas_list = Pelicula.objects.values_list()  #return tupla: (1, 'DR STRANGE', 'Marvel', 2022, 'name_foto', promedio)
-        
-        for pelicula in peliculas_list:
-            pelicula_obj =  Pelicula.objects.get(pk=pelicula[0])
-            criticas_list = Crítica.objects.values_list('id', 'correo', 'comentario', 'puntaje').filter(pelicula = pelicula[0], valida = "válida")  #Lista de Críticas válidas de la película actual
-            
-            suma_total = 0.
-            if (len(criticas_list) > 0):
-                for critica in criticas_list:
-                    suma_total += critica[3]
-                    
-                #print(suma_total)
-                #print(len(criticas_list))
-                promedio = suma_total / len(criticas_list)
-                #print(promedio)
-                pelicula_obj.estrella = promedio
-                pelicula_obj.save()
-                context['promedio'] = promedio
-
         context['peliculas'] = self.queryset
+        context['form'] = self.form_class
+        return context
+    
+    def post(self, request, **kwargs):
+        busqueda = request.POST.get("nombre")
+        context = super().get_context_data(**kwargs)
+        context['peliculas'] = self.queryset
+        context['form'] = self.form_class
+
+        if request.method == "POST":
+            if busqueda: 
+                peliculas = Pelicula.objects.filter(
+                    Q(nombre__icontains = busqueda)
+                ).distinct()
+                if peliculas.exists() == True:
+                    context['peliculas'] = peliculas
+                return self.render_to_response(context)
+            else:
+                return self.render_to_response(context)
+            
         
-            #pelicula[5] = suma_total / len(criticas_list)
-            #print(criticas_list)
-            #print(pelicula[0]) // 1
+        
         
 
-        return context
+        
 
 class PeliculasDetailView(TemplateView):
     #model = Pelicula
@@ -90,12 +87,36 @@ class PeliculasDetailView(TemplateView):
         return self.render_to_response(context)
 
 #Views Actores
-class ActoresListView(ListView):
-    model = Actor
+class ActoresListView(TemplateView):
+    #model = Actor
     queryset = Actor.objects.all()
-    context_object_name = 'actores'
+    #context_object_name = 'actores'
     paginate_by = 12
     template_name = 'actores.html'
+    form_class = ActoresForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['actores'] = self.queryset
+        context['form'] = self.form_class
+        return context
+
+    def post(self, request, **kwargs):
+        busqueda = request.POST.get("nombre")
+        context = super().get_context_data(**kwargs)
+        context['actores'] = self.queryset
+        context['form'] = self.form_class
+
+        if request.method == "POST":
+            if busqueda: 
+                actores = Actor.objects.filter(
+                    Q(nombre__icontains = busqueda)
+                ).distinct()
+                if actores.exists() == True:
+                    context['actores'] = actores
+                return self.render_to_response(context)
+            else:
+                return self.render_to_response(context)
 
 
 class ActoresDetailView(DetailView):
@@ -114,12 +135,41 @@ class ActoresDetailView(DetailView):
         return context
 
 #Views Directores
-class DirectoresListView(ListView):
-    model = Director
+class DirectoresListView(TemplateView):
+    #model = Director
     queryset = Director.objects.all()
-    context_object_name = 'directores'
+    #context_object_name = 'directores'
     paginate_by = 12
     template_name = 'directores.html'
+    form_class = DirectoresForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['directores'] = self.queryset
+        context['form'] = self.form_class
+        return context
+
+    def post(self, request, **kwargs):
+        busqueda = request.POST.get("nombre")
+        context = super().get_context_data(**kwargs)
+        context['directores'] = self.queryset
+        context['form'] = self.form_class
+
+        if request.method == "POST":
+            if busqueda: 
+                directores = Director.objects.filter(
+                    Q(nombre__icontains = busqueda)
+                ).distinct()
+                if directores.exists() == True:
+                    context['directores'] = directores
+                return self.render_to_response(context)
+            else:
+                return self.render_to_response(context)
+
+
+
+
+
 
 class DirectoresDetailView(DetailView):
     model = Director
