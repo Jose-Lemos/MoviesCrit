@@ -32,13 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'administracion'
+    'administracion',
+    'colorfield',
 ]
 
 MIDDLEWARE = [
@@ -74,13 +76,25 @@ WSGI_APPLICATION = 'integrador2022.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+POSTGRESQL = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'moviescrit',
+        'USER': 'postgres',
+        'PASSWORD': 'josekas30',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 DATABASES = {
-    'default': {
+    'default':{
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
 
 
 # Password validation
