@@ -17,6 +17,19 @@ class PeliculasListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        peliculas = list(self.queryset)
+        for pelicula_obj in peliculas:
+            criticas_pelicula = list(Crítica.objects.filter(pelicula = pelicula_obj.pk, valida = "válida"))
+            
+            if len(criticas_pelicula) > 0:
+                suma_total = 0
+                for critica in criticas_pelicula:
+                    suma_total += critica.puntaje
+                suma_total += pelicula_obj.estrella
+                promedio = suma_total / (len(criticas_pelicula)+1)
+                pelicula_obj.actualizar_estrellas(promedio)
+            
         context['peliculas'] = self.queryset
         context['form'] = self.form_class
         return context
