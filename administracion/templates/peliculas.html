@@ -4,8 +4,34 @@
         <div class="container" data-aos="fade-up">
   
           <div class="section-title">
-            <h2>Películas</h2>
-            <p>Selecciona una Película</p>
+            <div class="separador">
+              <div class="descripcion-title">
+                <h2>Películas</h2>
+                <p>Selecciona una Película</p>
+              </div>
+  
+              <div class="filtro-categorias">
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <div class="dropdown">
+                    <div id="form-cat">
+                      {{form_cat}}
+                    </div>
+                    <p>
+                      <span id="category">{{categoria_seleccionada}}</span>
+                      <i class="bi bi-chevron-down"></i>
+                    </p>
+                    <ul>
+                      {% for categoria in categorias %}
+                      <li><p onclick="actualizarCategoria(textContent)">{{categoria.nombre}}</p></li>
+                      {% endfor %}
+                      <li><p onclick="actualizarCategoria(textContent)">Todas las Categorias</p></li>
+                    </ul>
+                    <button type="submit" class="btn btn-warning" >Filtrar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
   
           <div class="row">

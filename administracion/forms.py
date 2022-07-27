@@ -33,6 +33,19 @@ class PeliculasForm(forms.ModelForm):
             'nombre' : forms.TextInput(attrs={'class':'form-control', 'placeholder':'Peliculas', })
         }
 
+
+class CategoriasForm(forms.ModelForm):
+    class Meta: 
+        model = Pelicula
+
+        fields = [
+            'categorias',
+        ]
+
+        widgets = {
+            'categorias' : forms.TextInput(attrs={'class':'form-control',  })
+        }
+
 class DirectoresForm(forms.ModelForm):
     class Meta: 
         model = Director

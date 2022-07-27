@@ -401,6 +401,94 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
+
+/*
+Flitro de Categorias
+*/
+.separador{
+  display: flex;
+  justify-content: space-between;
+}
+
+#form-cat{
+  display: flex;
+  height: 4px;
+}
+
+#form-cat label{
+  opacity: 0;
+}
+
+#form-cat input{
+  background: none;
+  opacity: 0;
+  border: none;
+}
+
+#id_categorias{
+  color: #0c0b09;
+
+}
+
+.filtro-categorias .dropdown ul {
+  display: block;
+  position: absolute;
+  left: 14px;
+  top: calc(100% + 30px);
+  margin: 0;
+  padding: 10px 0;
+  z-index: 99;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: 0px 0px 30px rgba(160, 120, 33, 0.25);
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.filtro-categorias .dropdown p{
+  display: inline;
+  background-color: #cda45e;
+  color: rgb(71, 70, 70);
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 8px;
+  justify-content: end;
+}
+
+.filtro-categorias .dropdown ul li {
+  list-style: none;
+}
+.filtro-categorias .dropdown ul p {
+  padding: 10px 20px;
+  color: black;
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.filtro-categorias .dropdown i {
+  font-size: 12px;
+  color: rgb(71, 70, 70);
+  margin-left: 4px;
+  padding-left: 4px;
+}
+.filtro-categorias .dropdown ul p:hover, .filtro-categorias .dropdown ul .active:hover, .filtro-categorias .dropdown ul li:hover > p {
+  color: #fff;
+}
+.filtro-categorias .dropdown:hover > ul {
+  opacity: 1;
+  top: 100%;
+  visibility: visible;
+}
+
+@media (max-width: 1366px) {
+  .filtro-categorias .dropdown .dropdown ul {
+    left: -90%;
+  }
+  .filtro-categorias .dropdown .dropdown:hover > ul {
+    left: -100%;
+  }
+}
+
+
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/

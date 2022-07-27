@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView
-from administracion.models import Pelicula, Actor, Director, Crítica
-from administracion.forms import CriticasForm, PeliculasForm, ActoresForm, DirectoresForm
+from administracion.models import Categoria, Pelicula, Actor, Director, Crítica
+from administracion.forms import CriticasForm, PeliculasForm, ActoresForm, DirectoresForm, CategoriasForm
 from django.db.models import Q
 # Create your views here.
 #Views Peliculas
@@ -13,6 +13,7 @@ class PeliculasListView(TemplateView):
     paginate_by = 12
     template_name = 'index.html'
     form_class = PeliculasForm
+    form_class1 = CategoriasForm()
 
 
     def get_context_data(self, **kwargs):
@@ -32,24 +33,54 @@ class PeliculasListView(TemplateView):
             
         context['peliculas'] = self.queryset
         context['form'] = self.form_class
+        context['form_cat'] = self.form_class1
+        context['categorias'] = Categoria.objects.all()
+        context['categoria_seleccionada'] = "Todas las Categorias"
         return context
     
-    def post(self, request, **kwargs):
+    def post(self, request, **kwargs):  #Buscador de peliculas
         busqueda = request.POST.get("nombre")
+        filtro = request.POST.get("categorias")
         context = super().get_context_data(**kwargs)
         context['peliculas'] = self.queryset
         context['form'] = self.form_class
+        context['form_cat'] = self.form_class1
+        context['categorias'] = Categoria.objects.all()
+        context['categoria_seleccionada'] = "Todas las Categorias"
 
         if request.method == "POST":
             if busqueda: 
+                busqueda = busqueda.lower()#convierto toda la busqueda en lestras minúsculas
+                busqueda = busqueda.title()#convierto las primeras letras de cada palabra, en mayúsculas, porque así aparecen las categorías en la BD 
+                
                 peliculas = Pelicula.objects.filter(
-                    Q(nombre__icontains = busqueda)
+                    Q(nombre__icontains = busqueda)#Especifico los campos para la búsqueda de películas (nombre o categoria)
                 ).distinct()
+                    
                 if peliculas.exists() == True:
                     context['peliculas'] = peliculas
+
                 return self.render_to_response(context)
             else:
-                return self.render_to_response(context)
+                if filtro:
+                    if filtro == "Todas las Categorias":
+                        peliculas = Pelicula.objects.all()
+                        context['peliculas'] = peliculas
+                        return self.render_to_response(context)
+                    else:
+                        categoria = Categoria.objects.filter(nombre=filtro)
+                        peliculas = Pelicula.objects.filter(
+                            Q(categorias=categoria[0].id) #Especifico los campos para la búsqueda de películas (nombre o categoria)
+                        ).distinct()
+                        
+                        
+                        if peliculas.exists() == True:
+                            context['peliculas'] = peliculas
+
+                        context['categoria_seleccionada'] = filtro
+                        return self.render_to_response(context)
+                else:
+                    return self.render_to_response(context)
             
         
         

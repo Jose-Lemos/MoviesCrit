@@ -274,9 +274,11 @@
       mirror: false
     })
   });
-
+  //document.getElementById("id_categorias").style.visibility = "hidden";
+  //document.getElementById("form-cat").style.visibility = "hidden";
 })()
 
+/**
 $(".my-rating-9").starRating({
   initialRating: 3,
   disableAfterRate: false,
@@ -287,4 +289,16 @@ $(".my-rating-9").starRating({
     $('.live-rating').text(currentRating);
   }
 });
+  */
+const categoria = document.getElementById("category");
+const inputText = document.getElementById("id_categorias"); 
 
+
+function printText(){
+  console.log(inputText.textContent);
+}
+
+function actualizarCategoria(cat){
+  categoria.innerText = cat
+  document.getElementById("id_categorias").value = cat
+}

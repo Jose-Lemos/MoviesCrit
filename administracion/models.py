@@ -97,7 +97,7 @@ class Crítica(models.Model):
         return '{0} {1} {2}'.format(self.correo, self.comentario, self.puntaje)
 
     def actualizar_puntaje_pelicula(self):
-        criticas_pelicula = Crítica.objects.filter(pelicula = self.pelicula, valida = 'válida')
+        criticas_pelicula = Crítica.objects.filter(pelicula = self.pelicula)
         list_criticas_pelicula = list(criticas_pelicula)
         cant_criticas_validas = len(criticas_pelicula)
         suma_total = 0
